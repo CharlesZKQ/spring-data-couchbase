@@ -24,6 +24,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -104,9 +105,9 @@ public class OptionsBuilder {
 			options.durability(durabilityLevel);
 		}
 		if (expiry != null) {
-			options.expiry(expiry);
+			options.expiry(Instant.now().plusSeconds(expiry.getSeconds()));
 		} else if (doc.getExpiration() != 0) {
-			options.expiry(Duration.ofSeconds(doc.getExpiration()));
+			options.expiry(Instant.now().plusSeconds(doc.getExpiration()));
 		}
 		if (LOG.isTraceEnabled()) {
 			LOG.trace("insert options: {}" + toString(options));
@@ -123,9 +124,15 @@ public class OptionsBuilder {
 			options.durability(durabilityLevel);
 		}
 		if (expiry != null) {
-			options.expiry(expiry);
+			Instant i = Instant.now().plusSeconds(expiry.getSeconds());
+			System.out.println(Instant.now());
+			System.out.println(i);
+			options.expiry(i);
 		} else if (doc.getExpiration() != 0) {
-			options.expiry(Duration.ofSeconds(doc.getExpiration()));
+			Instant i = Instant.now().plusSeconds(doc.getExpiration());
+			System.out.println(Instant.now());
+			System.out.println(i);
+			options.expiry(i);
 		}
 		if (LOG.isTraceEnabled()) {
 			LOG.trace("upsert options: {}" + toString(options));
@@ -142,9 +149,9 @@ public class OptionsBuilder {
 			options.durability(durabilityLevel);
 		}
 		if (expiry != null) {
-			options.expiry(expiry);
+			options.expiry(Instant.now().plusSeconds(expiry.getSeconds()));
 		} else if (doc.getExpiration() != 0) {
-			options.expiry(Duration.ofSeconds(doc.getExpiration()));
+			options.expiry(Instant.now().plusSeconds(doc.getExpiration()));
 		}
 		if (cas != null) {
 			options.cas(cas);
@@ -184,7 +191,7 @@ public class OptionsBuilder {
 
 	/**
 	 * scope annotation could be a
-	 * 
+	 *
 	 * @param domainType
 	 * @return
 	 */
@@ -330,7 +337,7 @@ public class OptionsBuilder {
 
 	/**
 	 * return the first merged annotation which does not have attribute with null/defaultValue from the listed elements.
-	 * 
+	 *
 	 * @param <A>
 	 * @param annotation
 	 * @param attributeName
@@ -396,7 +403,7 @@ public class OptionsBuilder {
 
 	/**
 	 * return the toString() of the first merged annotation which is not null/defaultValue from the listed elements.
-	 * 
+	 *
 	 * @param annotation
 	 * @param defaultValue
 	 * @param elements
