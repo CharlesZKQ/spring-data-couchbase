@@ -555,7 +555,7 @@ public class MappingCouchbaseConverterTests {
 		final CustomObject addy = new CustomObject(weight);
 		List<CustomObject> listOfObjects = new ArrayList<>();
 		listOfObjects.add(addy);
-		Map<String, CustomObject> mapOfObjects = new HashMap<>();
+		LinkedHashMap<String, CustomObject> mapOfObjects = new LinkedHashMap<>();
 		mapOfObjects.put("obj0", addy);
 		mapOfObjects.put("obj1", addy);
 
@@ -571,8 +571,8 @@ public class MappingCouchbaseConverterTests {
 		listOfObjectsDoc.put(objectDoc);
 		source.put("listOfObjects", listOfObjectsDoc);
 		CouchbaseDocument mapOfObjectsDoc = new CouchbaseDocument();
-		mapOfObjectsDoc.put("obj1", objectDoc);
 		mapOfObjectsDoc.put("obj0", objectDoc);
+		mapOfObjectsDoc.put("obj1", objectDoc);
 		source.put("mapOfObjects", mapOfObjectsDoc);
 		assertThat(converted.export().toString()).isEqualTo(source.export().toString());
 
