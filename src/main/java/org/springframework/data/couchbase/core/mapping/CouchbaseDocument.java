@@ -19,6 +19,7 @@ package org.springframework.data.couchbase.core.mapping;
 import com.couchbase.client.java.json.JsonObject;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -119,8 +120,8 @@ public class CouchbaseDocument implements CouchbaseStorable {
 	 *
 	 * @return
 	 */
-	public final HashMap<String, Object> export() {
-		HashMap<String, Object> toExport = new HashMap<String, Object>(content);
+	public final LinkedHashMap<String, Object> export() {
+		LinkedHashMap<String, Object> toExport = new LinkedHashMap<String, Object>(content);
 		for (Map.Entry<String, Object> entry : content.entrySet()) {
 			if (entry.getValue() instanceof CouchbaseDocument) {
 				toExport.put(entry.getKey(), ((CouchbaseDocument) entry.getValue()).export());
