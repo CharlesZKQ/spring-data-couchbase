@@ -86,7 +86,7 @@ public class CouchbaseDocument implements CouchbaseStorable {
 	public CouchbaseDocument(final String id, final int expiration) {
 		this.id = id;
 		this.expiration = expiration;
-		content = new HashMap<>();
+		content = new LinkedHashMap<>();
 	}
 
 	/**

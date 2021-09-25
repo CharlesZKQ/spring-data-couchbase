@@ -571,8 +571,8 @@ public class MappingCouchbaseConverterTests {
 		listOfObjectsDoc.put(objectDoc);
 		source.put("listOfObjects", listOfObjectsDoc);
 		CouchbaseDocument mapOfObjectsDoc = new CouchbaseDocument();
-		mapOfObjectsDoc.put("obj0", objectDoc);
 		mapOfObjectsDoc.put("obj1", objectDoc);
+		mapOfObjectsDoc.put("obj0", objectDoc);
 		source.put("mapOfObjects", mapOfObjectsDoc);
 		assertThat(converted.export().toString()).isEqualTo(source.export().toString());
 
