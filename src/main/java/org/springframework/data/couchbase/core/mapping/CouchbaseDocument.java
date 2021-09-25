@@ -21,6 +21,7 @@ import com.couchbase.client.java.json.JsonObject;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A {@link CouchbaseDocument} is an abstract representation of a document stored inside Couchbase Server.
@@ -296,5 +297,14 @@ public class CouchbaseDocument implements CouchbaseStorable {
 	@Override
 	public String toString() {
 		return "CouchbaseDocument{" + "id=" + id + ", exp=" + expiration + ", content=" + content + '}';
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!(obj instanceof CouchbaseDocument)) return false;
+		CouchbaseDocument convertedObj = (CouchbaseDocument) obj;
+		return Objects.equals(id, convertedObj.id) && Objects.equals(expiration, convertedObj.expiration)
+				&& Objects.equals(content, convertedObj.content);
 	}
 }
