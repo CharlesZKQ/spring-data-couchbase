@@ -574,7 +574,11 @@ public class MappingCouchbaseConverterTests {
 		mapOfObjectsDoc.put("obj0", objectDoc);
 		mapOfObjectsDoc.put("obj1", objectDoc);
 		source.put("mapOfObjects", mapOfObjectsDoc);
-		assertThat(converted.export().toString()).isEqualTo(source.export().toString());
+//		assertThat(converted.export().toString()).isEqualTo(source.export().toString());
+		assertThat(converted.getContent().get("_class")).isEqualTo(source.getContent().get("_class"));
+		assertThat(converted.getContent().get("object")).isEqualTo(source.getContent().get("object"));
+		assertThat(converted.getContent().get("listOfObjects")).isEqualTo(source.getContent().get("listOfObjects"));
+		assertThat(converted.getContent().get("mapOfObjects")).isEqualTo(source.getContent().get("mapOfObjects"));
 
 		CustomObjectEntity readConverted = converter.read(CustomObjectEntity.class, source);
 		assertThat(readConverted.object.weight).isEqualTo(addy.weight);
@@ -803,11 +807,6 @@ public class MappingCouchbaseConverterTests {
 			this.object = object;
 			this.listOfObjects = listOfObjects;
 			this.mapOfObjects = mapOfObjects;
-		}
-
-		@Override
-		public String toString() {
-			return object + " " + listOfObjects + " " + mapOfObjects;
 		}
 	}
 
