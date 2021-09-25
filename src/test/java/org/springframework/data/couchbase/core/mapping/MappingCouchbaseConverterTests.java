@@ -804,6 +804,11 @@ public class MappingCouchbaseConverterTests {
 			this.listOfObjects = listOfObjects;
 			this.mapOfObjects = mapOfObjects;
 		}
+
+		@Override
+		public String toString() {
+			return object + " " + listOfObjects + " " + mapOfObjects;
+		}
 	}
 
 	@TypeAlias("x")
